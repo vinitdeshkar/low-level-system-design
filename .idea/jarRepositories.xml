@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="RemoteRepositoriesConfiguration">
+    <remote-repository>
+      <option name="id" value="autodesk-releases-toucan" />
+      <option name="name" value="Autodesk Release Repository - Toucan" />
+      <option name="url" value="https://art-toucan.autodesk.com/artifactory/releases" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven-central-cache-bobcat" />
+      <option name="name" value="maven-central-cache-bobcat" />
+      <option name="url" value="https://art-bobcat.autodesk.com/artifactory/maven-central-cache" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="central" />
+      <option name="name" value="Central Repository" />
+      <option name="url" value="https://repo.maven.apache.org/maven2" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="autodesk-releases-bobcat" />
+      <option name="name" value="Autodesk Release Repository - Bobcat" />
+      <option name="url" value="https://art-bobcat.autodesk.com/artifactory/releases" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven-central-cache-toucan" />
+      <option name="name" value="maven-central-cache-toucan" />
+      <option name="url" value="https://art-toucan.autodesk.com/artifactory/maven-central-cache" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="autodesk-libs-release-maven-toucan" />
+      <option name="name" value="autodesk-libs-release-maven-toucan" />
+      <option name="url" value="https://art-toucan.autodesk.com/artifactory/autodesk-libs-release-maven" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="autodesk-libs-snapshot-maven-toucan" />
+      <option name="name" value="autodesk-libs-snapshot-maven-toucan" />
+      <option name="url" value="https://art-toucan.autodesk.com/artifactory/autodesk-libs-snapshot-maven" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="autodesk-libs-snapshot-maven-bobcat" />
+      <option name="name" value="autodesk-libs-snapshot-maven-bobcat" />
+      <option name="url" value="https://art-bobcat.autodesk.com/artifactory/autodesk-libs-snapshot-maven" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="autodesk-libs-release-maven-bobcat" />
+      <option name="name" value="autodesk-libs-release-maven-bobcat" />
+      <option name="url" value="https://art-bobcat.autodesk.com/artifactory/autodesk-libs-release-maven" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="team-fusion-symphony-gradle" />
+      <option name="name" value="team-fusion-symphony-gradle" />
+      <option name="url" value="https://art-bobcat.autodesk.com:443/artifactory/team-fusion-symphony-gradle" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="central" />
+      <option name="name" value="Maven Central repository" />
+      <option name="url" value="https://repo1.maven.org/maven2" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="jboss.community" />
+      <option name="name" value="JBoss Community repository" />
+      <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
+    </remote-repository>
+  </component>
+</project>
