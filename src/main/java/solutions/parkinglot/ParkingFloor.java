@@ -1,6 +1,7 @@
 package solutions.parkinglot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,37 +14,53 @@ public class ParkingFloor {
 
     private final int parkingFloorNumber;
     private final List<ParkingSpot> parkingSpots;
+    // Map of vehicle licensePlate and its Parking spot
+    private final Map<String, ParkingSpot> vehicleParkingSpotMap;
 
     public ParkingFloor(int parkingFloorNumber, List<ParkingSpot> parkingSpots) {
         this.parkingFloorNumber = parkingFloorNumber;
         this.parkingSpots = parkingSpots;
+        vehicleParkingSpotMap = new HashMap<>();
     }
 
     public boolean parkVehicle(Vehicle vehicle) {
         for (ParkingSpot spot : parkingSpots) {
             if (spot.isAvailable() && spot.getVehicleType() == vehicle.getVehicleType()) {
                 spot.parkVehicle(vehicle);
+                vehicleParkingSpotMap.put(vehicle.getLicensePlate(), spot);
                 return true;
             }
         }
-        return false;
+
+        throw new IllegalArgumentException("Invalid vehicle type or spot already occupied.");
+
     }
 
     public boolean unParkVehicle(Vehicle vehicle) {
-        for (ParkingSpot spot : parkingSpots) {
-            if (!spot.isAvailable() && spot.getParkedVehicle().getLicensePlate().equalsIgnoreCase(vehicle.getLicensePlate())) {
-                spot.unParkVehicle();
-                return true;
-            }
+        String licensePlate = vehicle.getLicensePlate();
+        if (vehicleParkingSpotMap.containsKey(licensePlate)) {
+            ParkingSpot parkingSpot = vehicleParkingSpotMap.get(licensePlate);
+            parkingSpot.unParkVehicle();
+            vehicleParkingSpotMap.remove(vehicle.getLicensePlate());
+            return true;
         }
+
         return false;
     }
 
-    public void displayAvailability() {
-        System.out.println("Level " + parkingFloorNumber + " Availability:");
+    public Map<VehicleType, Integer> displayAvailability() {
+
+        Map<VehicleType, Integer> availableSpotsCount = new HashMap<>();
         for (ParkingSpot spot : parkingSpots) {
-            System.out.println("Spot " + spot.getSpotNumber() + ": " + (spot.isAvailable() ? "Available" : "Occupied"));
+            // System.out.println("Spot " + spot.getSpotNumber() + ": " + (spot.isAvailable() ? "Available" : "Occupied"));
+            if (spot.isAvailable()) {
+                VehicleType vehicleType = spot.getVehicleType();
+                availableSpotsCount.put(vehicleType, availableSpotsCount.getOrDefault(vehicleType, 0) + 1);
+            }
         }
+
+        return availableSpotsCount;
+
     }
 
     public static ParkingFloorBuilder newBuilder() {

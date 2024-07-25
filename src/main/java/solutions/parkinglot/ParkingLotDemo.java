@@ -11,13 +11,13 @@ import solutions.parkinglot.vehicle.VehicleType;
 
 public class ParkingLotDemo {
     public static void run() {
-        ParkingLot parkingLot = ParkingLot.getInstance();
+        ParkingLotManager parkingLot = ParkingLotManager.getInstance();
 
         // This config defines parking spot types and their counts
         Map<VehicleType, Integer> spotsConfiguration = new HashMap<>();
-        spotsConfiguration.put(VehicleType.CAR, 2);
-        spotsConfiguration.put(VehicleType.TRUCK, 1);
-        spotsConfiguration.put(VehicleType.MOTORCYCLE, 5);
+        spotsConfiguration.put(VehicleType.CAR, 5);
+        spotsConfiguration.put(VehicleType.TRUCK, 2);
+        spotsConfiguration.put(VehicleType.MOTORCYCLE, 10);
 
         for (int i = 0; i < 2; i++) {
             ParkingFloor parkingFloor =
