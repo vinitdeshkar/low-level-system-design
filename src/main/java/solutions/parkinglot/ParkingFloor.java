@@ -5,27 +5,18 @@ import java.util.List;
 import java.util.Map;
 
 import lombok.Getter;
-import lombok.Setter;
 import solutions.parkinglot.vehicle.Vehicle;
 import solutions.parkinglot.vehicle.VehicleType;
 
 @Getter
-@Setter
 public class ParkingFloor {
 
-    private int parkingFloorNumber;
-    private List<ParkingSpot> parkingSpots;
+    private final int parkingFloorNumber;
+    private final List<ParkingSpot> parkingSpots;
 
-    public ParkingFloor(int parkingFloorNumber, Map<VehicleType, Integer> spotTypeCountMap) {
+    public ParkingFloor(int parkingFloorNumber, List<ParkingSpot> parkingSpots) {
         this.parkingFloorNumber = parkingFloorNumber;
-        this.parkingSpots = new ArrayList<>();
-
-        spotTypeCountMap.forEach((key, value) -> {
-            for (int i = 0; i < value; i++) {
-                this.parkingSpots.add(new ParkingSpot(key.toString() + " " + i, key));
-            }
-        });
-
+        this.parkingSpots = parkingSpots;
     }
 
     public boolean parkVehicle(Vehicle vehicle) {
@@ -52,6 +43,36 @@ public class ParkingFloor {
         System.out.println("Level " + parkingFloorNumber + " Availability:");
         for (ParkingSpot spot : parkingSpots) {
             System.out.println("Spot " + spot.getSpotNumber() + ": " + (spot.isAvailable() ? "Available" : "Occupied"));
+        }
+    }
+
+    public static ParkingFloorBuilder newBuilder() {
+        return new ParkingFloorBuilder();
+    }
+
+
+    // Builder design pattern example
+    public static class ParkingFloorBuilder {
+        private int parkingFloorNumber;
+        private List<ParkingSpot> parkingSpots;
+
+        public ParkingFloorBuilder setParkingFloorNumber(int parkingFloorNumber) {
+            this.parkingFloorNumber = parkingFloorNumber;
+            return this;
+        }
+
+        public ParkingFloorBuilder setParkingSpots(Map<VehicleType, Integer> spotsConfiguration) {
+            this.parkingSpots = new ArrayList<>();
+            spotsConfiguration.forEach((key, value) -> {
+                for (int i = 0; i < value; i++) {
+                    this.parkingSpots.add(new ParkingSpot(key.toString() + " " + i, key));
+                }
+            });
+            return this;
+        }
+
+        public ParkingFloor build() {
+            return new ParkingFloor(this.parkingFloorNumber, this.parkingSpots);
         }
     }
 

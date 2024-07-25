@@ -13,13 +13,21 @@ public class ParkingLotDemo {
     public static void run() {
         ParkingLot parkingLot = ParkingLot.getInstance();
 
-        Map<VehicleType, Integer> spotTypeCountMap = new HashMap<>();
-        spotTypeCountMap.put(VehicleType.CAR, 2);
-        spotTypeCountMap.put(VehicleType.TRUCK, 1);
-        spotTypeCountMap.put(VehicleType.MOTORCYCLE, 5);
+        // This config defines parking spot types and their counts
+        Map<VehicleType, Integer> spotsConfiguration = new HashMap<>();
+        spotsConfiguration.put(VehicleType.CAR, 2);
+        spotsConfiguration.put(VehicleType.TRUCK, 1);
+        spotsConfiguration.put(VehicleType.MOTORCYCLE, 5);
 
-        parkingLot.addLevel(new ParkingFloor(1, spotTypeCountMap));
-        parkingLot.addLevel(new ParkingFloor(2, spotTypeCountMap));
+        for (int i = 0; i < 2; i++) {
+            ParkingFloor parkingFloor =
+                    ParkingFloor
+                            .newBuilder()
+                            .setParkingFloorNumber(i)
+                            .setParkingSpots(spotsConfiguration)
+                            .build();
+            parkingLot.addLevel(parkingFloor);
+        }
 
         Vehicle car = new Car("ABC123");
         Vehicle truck = new Truck("XYZ789");

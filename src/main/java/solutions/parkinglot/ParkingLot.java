@@ -8,7 +8,7 @@ import solutions.parkinglot.vehicle.Vehicle;
 public class ParkingLot {
 
     private static ParkingLot instance;
-    private List<ParkingFloor> parkingFloors;
+    private final List<ParkingFloor> parkingFloors;
 
     // Created a private constructor to add a restriction (due to Singleton)
     private ParkingLot() {
@@ -18,7 +18,8 @@ public class ParkingLot {
     // Created a static method to access the singleton instance of ParkingLot
     public static synchronized ParkingLot getInstance() {
         if (instance == null) {
-            return new ParkingLot();
+            instance = new ParkingLot();
+            return instance;
         }
         return instance;
     }
