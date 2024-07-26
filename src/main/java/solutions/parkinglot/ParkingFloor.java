@@ -32,11 +32,11 @@ public class ParkingFloor {
             }
         }
 
-        throw new IllegalArgumentException("Invalid vehicle type or spot already occupied.");
+        throw new ParkingLotException("Invalid vehicle type or spot already occupied.");
 
     }
 
-    public boolean unParkVehicle(Vehicle vehicle) {
+    public synchronized boolean unParkVehicle(Vehicle vehicle) {
         String licensePlate = vehicle.getLicensePlate();
         if (vehicleParkingSpotMap.containsKey(licensePlate)) {
             ParkingSpot parkingSpot = vehicleParkingSpotMap.get(licensePlate);

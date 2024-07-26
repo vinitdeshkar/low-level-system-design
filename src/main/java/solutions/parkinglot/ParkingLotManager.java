@@ -50,7 +50,7 @@ public class ParkingLotManager implements ParkingLot {
     }
 
     @Override
-    public void unParkVehicle(Vehicle vehicle) {
+    public synchronized void unParkVehicle(Vehicle vehicle) {
 
         String licensePlate = vehicle.getLicensePlate();
 
@@ -58,6 +58,9 @@ public class ParkingLotManager implements ParkingLot {
             int parkingFloorNumber = vehicleParkingFloorMap.get(licensePlate);
             ParkingFloor parkingFloor = parkingFloorMap.get(parkingFloorNumber);
             parkingFloor.unParkVehicle(vehicle);
+            vehicleParkingFloorMap.remove(licensePlate);
+        } else {
+            throw new ParkingLotException("Vehicle not found in the parking lot!");
         }
     }
 
