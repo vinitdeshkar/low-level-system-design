@@ -31,6 +31,16 @@ public class BookItem {
         return price;
     }
 
+    @Override
+    public String toString() {
+        return "BookItem{" +
+                "bookItemId='" + bookItemId + '\'' +
+                ", bookFormat=" + bookFormat +
+                ", price=" + price +
+                ", book=" + book +
+                '}';
+    }
+
     public static BookItemBuilder newBuilder() {
         return new BookItemBuilder();
     }

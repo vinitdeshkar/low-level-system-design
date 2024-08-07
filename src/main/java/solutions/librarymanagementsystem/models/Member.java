@@ -36,4 +36,13 @@ public class Member {
     public List<BookItem> getBorrowedBookItems() {
         return borrowedBookItems;
     }
+
+    @Override
+    public String toString() {
+        return "Member{" +
+                "memberId='" + memberId + '\'' +
+                ", memberProfile=" + memberProfile +
+                ", borrowedBookItems=" + borrowedBookItems +
+                '}';
+    }
 }

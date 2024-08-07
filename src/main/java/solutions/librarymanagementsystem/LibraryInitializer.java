@@ -22,6 +22,8 @@ public class LibraryInitializer {
                     .setPublishers(Collections.singletonList("Publisher " + i))
                     .build();
 
+            System.out.println("Created a book " + book);
+
             for (int j = 0; j < 3; j++) {
                 BookItem bookItem = BookItem
                         .newBuilder()
@@ -30,9 +32,14 @@ public class LibraryInitializer {
                         .setBookFormat(BookFormat.PAPERBACK)
                         .setBook(book)
                         .build();
+
+                System.out.println("Created a book item" + bookItem);
                 libraryManager.addBookItem(bookItem);
                 bookItems.add(bookItem);
+
             }
+
+            System.out.println("------------------------------------------------------------------------");
         }
 
         return bookItems;
@@ -44,10 +51,13 @@ public class LibraryInitializer {
         // Create members
         for (int i = 0; i < 3; i++) {
             MemberProfile memberProfile = new MemberProfile("Name " + i, "emailId" + i + ".com", "32183791", "Pune - " + i);
-            Member member = new Member(UUID.randomUUID().toString(), memberProfile);
+            Member member = new Member("MEMBER-ID-" + i, memberProfile);
             libraryManager.registerMember(member);
             members.add(member);
+            System.out.println("Created a member" + member);
         }
+
+        System.out.println("------------------------------------------------------------------------");
 
         return members;
     }
