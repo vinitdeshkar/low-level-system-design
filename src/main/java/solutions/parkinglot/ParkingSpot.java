@@ -1,10 +1,8 @@
 package solutions.parkinglot;
 
-import lombok.Getter;
 import solutions.parkinglot.vehicle.Vehicle;
 import solutions.parkinglot.vehicle.VehicleType;
 
-@Getter
 public class ParkingSpot {
     private final String spotNumber;
     private final VehicleType vehicleType;
@@ -27,5 +25,9 @@ public class ParkingSpot {
 
     public boolean isAvailable() {
         return this.parkedVehicle == null;
+    }
+
+    public VehicleType getVehicleType() {
+        return vehicleType;
     }
 }

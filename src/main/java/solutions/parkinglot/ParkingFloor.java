@@ -5,11 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import lombok.Getter;
 import solutions.parkinglot.vehicle.Vehicle;
 import solutions.parkinglot.vehicle.VehicleType;
 
-@Getter
 public class ParkingFloor {
 
     private final int parkingFloorNumber;
@@ -61,6 +59,10 @@ public class ParkingFloor {
 
         return availableSpotsCount;
 
+    }
+
+    public int getParkingFloorNumber() {
+        return parkingFloorNumber;
     }
 
     public static ParkingFloorBuilder newBuilder() {

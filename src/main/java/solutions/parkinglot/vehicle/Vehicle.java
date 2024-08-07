@@ -1,8 +1,5 @@
 package solutions.parkinglot.vehicle;
 
-import lombok.Getter;
-
-@Getter
 public abstract class Vehicle {
 
     protected final String licensePlate;
@@ -13,4 +10,11 @@ public abstract class Vehicle {
         this.vehicleType = vehicleType;
     }
 
+    public String getLicensePlate() {
+        return licensePlate;
+    }
+
+    public VehicleType getVehicleType() {
+        return vehicleType;
+    }
 }
