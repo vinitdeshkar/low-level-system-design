@@ -23,7 +23,8 @@ public class LibraryManager {
 
     public static synchronized LibraryManager getInstance() {
         if (instance == null) {
-            return new LibraryManager();
+            instance = new LibraryManager();
+            return instance;
         }
         return instance;
     }
