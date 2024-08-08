@@ -27,13 +27,13 @@ public class LibraryInitializer {
             for (int j = 0; j < 3; j++) {
                 BookItem bookItem = BookItem
                         .newBuilder()
-                        .setBookItemId("BOOK-ITEM-" + i)
+                        .setBookItemId("BOOK-ITEM-" + i + j)
                         .setPrice(10.0)
                         .setBookFormat(BookFormat.PAPERBACK)
                         .setBook(book)
                         .build();
 
-                System.out.println("Created a book item" + bookItem);
+                System.out.println("Created a book item " + bookItem);
                 libraryManager.addBookItem(bookItem);
                 bookItems.add(bookItem);
 
@@ -54,7 +54,7 @@ public class LibraryInitializer {
             Member member = new Member("MEMBER-ID-" + i, memberProfile);
             libraryManager.registerMember(member);
             members.add(member);
-            System.out.println("Created a member" + member);
+            System.out.println("Created a member " + member);
         }
 
         System.out.println("------------------------------------------------------------------------");

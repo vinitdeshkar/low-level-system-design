@@ -8,11 +8,12 @@ import solutions.librarymanagementsystem.services.BookService;
 import solutions.librarymanagementsystem.services.MemberService;
 
 import java.util.List;
+import java.util.Optional;
 
 public class LibraryManager {
 
     private static LibraryManager instance;
-    private final int MAX_BOOKS_PER_MEMBER = 5;
+    private static final int MAX_BOOKS_PER_MEMBER = 5;
     private final BookService bookService;
     private final MemberService memberService;
 
@@ -37,29 +38,29 @@ public class LibraryManager {
         this.bookService.removeBookItem(bookItem);
     }
 
-    public synchronized BookItem borrowBook(String memberId, String bookItemId) {
+    public synchronized BookItem borrowBook(Member member, BookItem bookItem) {
 
-        Member member = this.memberService.getMember(memberId);
-        BookItem bookItem = this.bookService.getBookItem(bookItemId);
+        Optional<Member> memberOptional = Optional.ofNullable(this.memberService.getMember(member.getMemberId()));
+        Optional<BookItem> bookItemOptional = Optional.ofNullable(this.bookService.getBookItem(bookItem.getBookItemId()));
 
-        if (member != null && bookItem != null) {
+        if (memberOptional.isPresent() && bookItemOptional.isPresent()) {
             if (member.getBorrowedBookItems().size() < MAX_BOOKS_PER_MEMBER) {
+                this.bookService.removeBookItem(bookItem);
                 member.borrowBookItem(bookItem);
                 return bookItem;
             } else {
                 throw new LMSException("Member " + member.getMemberProfile().getName() + " has already borrowed max no of allowed books.");
             }
-        } else {
-            throw new LMSException("Either member/book is not found OR book is not available.");
         }
+
+        return bookItem;
     }
 
-    public synchronized void returnBook(String memberId, String bookItemId) {
+    public synchronized void returnBook(Member member, BookItem bookItem) {
 
-        Member member = this.memberService.getMember(memberId);
-        BookItem bookItem = this.bookService.getBookItem(bookItemId);
+        Optional<Member> memberOptional = Optional.ofNullable(this.memberService.getMember(member.getMemberId()));
 
-        if (member != null && bookItem != null) {
+        if (memberOptional.isPresent()) {
             member.returnBook(bookItem);
             this.bookService.addBookItem(bookItem);
         } else {
@@ -74,6 +75,10 @@ public class LibraryManager {
     public boolean registerMember(Member member) {
         this.memberService.addMember(member);
         return true;
+    }
+
+    public List<BookItem> getAllBookItemsByBook(Book book) {
+        return this.bookService.getAllBookItemsByBook(book);
     }
 
     public void unregisterMember(String memberId) {

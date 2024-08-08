@@ -8,39 +8,47 @@ import java.util.List;
 
 public class LibraryManagementSystemDemo {
 
+    private static final String BOOK_TITLE_TO_SEARCH = "Title 0";
+
     public static void main(String[] args) {
 
         LibraryManager libraryManager = LibraryManager.getInstance();
 
-        System.out.println("-----------ADDING BOOK ITEMS-------------");
+        System.out.println("-----------------ADDING BOOK ITEMS TO THE LIBRARY----------------------");
         List<BookItem> bookItems = LibraryInitializer.addBookItems(libraryManager);
 
-        System.out.println("-----------ADDING MEMBERS-------------");
+        System.out.println("-----------------ADDING MEMBERS TO THE LIBRARY--------------------------");
         List<Member> members = LibraryInitializer.addMembers(libraryManager);
 
-        String memberId = members.getFirst().getMemberId();
-        String bookItemId = bookItems.getFirst().getBookItemId();
+        Member libraryMember = members.getFirst();
 
+        System.out.println("-------------------SEARCHING BOOKS WITH BOOK TITLE: " + BOOK_TITLE_TO_SEARCH + "---------------------");
 
-        System.out.println("Borrowing book item with id " + bookItemId + " for member id " + memberId);
-        BookItem bookItem = libraryManager.borrowBook(memberId, bookItemId);
+        List<Book> matchingBooks = libraryManager.searchBooksByTitle(BOOK_TITLE_TO_SEARCH);
+        System.out.println("Found matching books: " + matchingBooks);
 
-        List<BookItem> borrowedBookItems = members.getFirst().getBorrowedBookItems();
-        System.out.println("Borrowed book items " + borrowedBookItems);
+        Book matchingLibraryBook = matchingBooks.getFirst();
 
-        System.out.println("-----------RETURN BOOK ITEM-------------");
+        System.out.println("---------------------FINDING BOOK ITEMS WITH BOOK TITLE: " + matchingLibraryBook.getTitle() + " ------------------------");
 
-        System.out.println("Returning book item with id " + bookItemId + " for member id " + memberId);
-        libraryManager.returnBook(memberId, bookItemId);
+        List<BookItem> libraryBookItems = libraryManager.getAllBookItemsByBook(matchingLibraryBook);
 
-        borrowedBookItems = members.getFirst().getBorrowedBookItems();
+        BookItem libraryBookItem = libraryBookItems.getFirst();
+
+        System.out.println("Borrowing book item with id " + libraryBookItem.getBookItemId() + " for member id " + libraryMember.getMemberId());
+        BookItem bookItem = libraryManager.borrowBook(libraryMember, libraryBookItem);
+
+        List<BookItem> borrowedBookItems = libraryMember.getBorrowedBookItems();
+        System.out.println("Borrowed book items by library members :" + borrowedBookItems);
+
+        System.out.println("----------------------------RETURNING BOOK ITEM----------------------------------");
+
+        System.out.println("Returning book item with id " + libraryBookItem.getBookItemId() + " for member id " + libraryMember.getMemberId());
+        libraryManager.returnBook(libraryMember, libraryBookItem);
+
+        borrowedBookItems = libraryMember.getBorrowedBookItems();
         System.out.println("Member book items " + borrowedBookItems);
 
-        System.out.println("--------------SEARCHING BOOKS------------------------");
-
-        List<Book> matchingBooks = libraryManager.searchBooksByTitle("Title");
-
-        System.out.println(matchingBooks);
     }
 
 }

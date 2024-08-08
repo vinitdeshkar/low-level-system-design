@@ -15,26 +15,14 @@ public class MemberRepository {
     }
 
     public void addMember(Member member) {
-        if (!memberMap.containsKey(member.getMemberId())) {
-            memberMap.put(member.getMemberId(), member);
-        } else {
-            throw new LMSException("Member with id " + member.getMemberId() + " already exists in the system");
-        }
+        memberMap.putIfAbsent(member.getMemberId(), member);
     }
 
     public void removeMember(String memberId) {
-        if (memberMap.containsKey(memberId)) {
-            memberMap.remove(memberId);
-        } else {
-            throw new LMSException("Member with id " + memberId + " doesn't exist in the system");
-        }
+        memberMap.remove(memberId);
     }
 
     public Member getMember(String memberId) {
-        if (memberMap.containsKey(memberId)) {
-            return memberMap.get(memberId);
-        } else {
-            throw new LMSException("Member with id " + memberId + " doesn't exist in the system");
-        }
+        return memberMap.get(memberId);
     }
 }

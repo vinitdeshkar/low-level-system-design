@@ -11,11 +11,11 @@ import java.util.stream.Collectors;
 
 public class BookRepository {
     private final Map<String, Book> booksMap;
-    private final Map<String, BookItem> booksItemMap;
+    private final Map<String, BookItem> bookItemsMap;
 
     public BookRepository() {
         this.booksMap = new HashMap<>();
-        this.booksItemMap = new HashMap<>();
+        this.bookItemsMap = new HashMap<>();
     }
 
     public void addBookItem(BookItem bookItem) {
@@ -23,16 +23,16 @@ public class BookRepository {
         String bookId = book.getId();
         String bookItemId = bookItem.getBookItemId();
         booksMap.put(bookId, book);
-        booksItemMap.put(bookItemId, bookItem);
+        bookItemsMap.put(bookItemId, bookItem);
     }
 
     public void removeBookItem(BookItem bookItem) {
         String bookItemId = bookItem.getBookItemId();
-        booksItemMap.remove(bookItemId);
+        bookItemsMap.remove(bookItemId);
     }
 
     public BookItem getBookItem(String bookItemId) {
-        return booksItemMap.get(bookItemId);
+        return bookItemsMap.get(bookItemId);
     }
 
     public Book getBook(String bookId) {
@@ -41,6 +41,16 @@ public class BookRepository {
 
     public List<Book> getAllBooks() {
         return new ArrayList<>(this.booksMap.values());
+    }
+
+    public List<BookItem> getAllBookItemsByBook(Book book) {
+
+        String bookId = book.getId();
+        return this.bookItemsMap
+                .values()
+                .stream()
+                .filter(bookItem -> bookItem.getBook().getId().equals(bookId))
+                .collect(Collectors.toList());
     }
 
 }
